@@ -1,0 +1,25 @@
+# THIS IS THE CONFIG IMPORT FILE THAT BROWNIE ALWAYS LOOKS FOR ! ! !
+
+dependencies:
+  # - <organization/repo>@<version>   |   This is so brownie recongizes the two imports we have on FundMe.sol because brownie can't donload directly from NPM, but it can donwload directly from github repositories
+  - smartcontractkit/chainlink-brownie-contracts@1.1.1 # By doing this everything in the contract section of this repository will be available for our solidity code to imnport, and use. LINK https://github.com/smartcontractkit/chainlink-brownie-contracts
+compiler:
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1' # Here we're saying that the @chainlink part refers to the git repo we have above | RUN brownie compile and if it's successful a dependencies folder will be created in the build section with two json files named after the imports we have on FundMe.sol
+
+dotenv: .env # REQUIRES THE ENV FILE WITH THE PRIVATE KEY AND INFURA PROJECT KEY
+networks:
+  default: development
+  rinkeby:
+    eth_usd_price_feed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e'
+    verify: True
+  mainnet-fork-dev:
+    eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
+    verify: False
+  ganache-local:
+    verify: False
+  development:
+    verify: False
+wallets:
+  from_key: ${PRIVATE_KEY}
